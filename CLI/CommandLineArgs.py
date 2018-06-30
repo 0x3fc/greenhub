@@ -5,6 +5,8 @@ class CommandLineArgs:
     flags = {}
     params = {}
     arguments = []
+    commands = {}
+    method_args = {}
 
     def __init__(self):
         """
@@ -23,6 +25,41 @@ class CommandLineArgs:
             'params': self.params,
             'arguments': self.arguments,
         })
+
+    def handle(self):
+        """
+        handle command line input and execute the corresponding command
+        """
+
+        # get identifier
+        identifier = self.get_argument(0)
+
+        # execute if identifier is been called
+        if identifier in self.commands:
+            return self.commands[identifier](*self.method_args[identifier], command=self)
+
+        return None
+
+    def add_command(self, identifier, method, args: list = None):
+        """
+        add a command
+
+        Args:
+            identifier  (str)   : the identifier of the command; execute command when args has the identifier
+            method      (method): the method when trigger the command; it has a default argument command which is the
+                                  current CommandLineArgs object
+            args        (list)  : other arguments for the method; these arguments are fixed after specifying the command
+        """
+
+        # check if has extra args
+        if args is None:
+            args = []
+
+        # set command method
+        self.commands[identifier] = method
+
+        # set command extra args
+        self.method_args[identifier] = args
 
     def get_flag(self, flag):
         """
