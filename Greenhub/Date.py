@@ -1,6 +1,7 @@
 import time
 from datetime import datetime
 import calendar
+import operator
 
 
 # date range constants
@@ -36,6 +37,103 @@ class Date:
         """
 
         return str(datetime.fromtimestamp(self.timestamp))
+
+    def __eq__(self, other):
+        """
+
+        Args:
+            other (Union[Union[Date, str], int]): another date object or date/datetime format string or timestamp int
+
+        Returns:
+            bool: if current object is equal to the argument
+        """
+
+        return self.object_comparison(operator.eq, other)
+
+    def __ne__(self, other):
+        """
+
+        Args:
+            other (Union[Union[Date, str], int]): another date object or date/datetime format string or timestamp int
+
+        Returns:
+            bool: if current object is not equal to the argument
+        """
+
+        return self.object_comparison(operator.ne, other)
+
+    def __ge__(self, other):
+        """
+
+        Args:
+            other (Union[Union[Date, str], int]): another date object or date/datetime format string or timestamp int
+
+        Returns:
+            bool: if current object is greater than or equal to the argument
+        """
+
+        return self.object_comparison(operator.ge, other)
+
+    def __gt__(self, other):
+        """
+
+        Args:
+            other (Union[Union[Date, str], int]): another date object or date/datetime format string or timestamp int
+
+        Returns:
+            bool: if current object is greater than the argument
+        """
+
+        return self.object_comparison(operator.gt, other)
+
+    def __le__(self, other):
+        """
+
+        Args:
+            other (Union[Union[Date, str], int]): another date object or date/datetime format string or timestamp int
+
+        Returns:
+            bool: if current object is less than or equal to the argument
+        """
+
+        return self.object_comparison(operator.le, other)
+
+    def __lt__(self, other):
+        """
+
+        Args:
+            other (Union[Union[Date, str], int]): another date object or date/datetime format string or timestamp int
+
+        Returns:
+            bool: if current object is less than the argument
+        """
+
+        return self.object_comparison(operator.lt, other)
+
+    def object_comparison(self, op, other):
+        """
+        compare current object with other object
+
+        Args:
+            op    (method)                      : the operator method
+            other (Union[Union[Date, str], int]): another date object or date/datetime format string or timestamp int
+
+        Returns:
+            bool: if current object is {op} to the argument
+        """
+
+        other_type = type(other)
+
+        if other_type is Date:
+            return op(self.timestamp, other.timestamp)
+
+        if other_type is str:
+            return op(self.timestamp, Date(other_type).timestamp)
+
+        if other_type is int:
+            return op(self.timestamp, other)
+
+        return op(self.timestamp, int(other))
 
     @staticmethod
     def date_parser(date):
@@ -112,7 +210,9 @@ class Date:
         set date object to current time
         """
 
-        self.timestamp = time.time()
+        self.timestamp = int(time.time())
+
+        return self
 
     def set_date(self, date=None):
         """
@@ -124,7 +224,9 @@ class Date:
 
         ts1 = calendar.timegm(Date.date_parser(date))
 
-        self.timestamp = datetime.utcfromtimestamp(ts1).timestamp()
+        self.timestamp = int(datetime.utcfromtimestamp(ts1).timestamp())
+
+        return self
 
     # day related
 
@@ -135,6 +237,8 @@ class Date:
 
         self.timestamp += ONE_DAY
 
+        return self
+
     def yesterday(self):
         """
         set object date to the last day
@@ -143,6 +247,8 @@ class Date:
         self.timestamp -= ONE_DAY
 
         self.lowest_timestamp_check()
+
+        return self
 
     def days_after(self, days):
         """
@@ -153,6 +259,8 @@ class Date:
         """
 
         self.timestamp += days * ONE_DAY
+
+        return self
 
     def days_before(self, days):
         """
@@ -166,6 +274,8 @@ class Date:
 
         self.lowest_timestamp_check()
 
+        return self
+
     # week related
 
     def next_week(self):
@@ -174,6 +284,8 @@ class Date:
         """
 
         self.timestamp += ONE_WEEK
+
+        return self
 
     def last_week(self):
         """
@@ -184,6 +296,8 @@ class Date:
 
         self.lowest_timestamp_check()
 
+        return self
+
     def weeks_after(self, weeks):
         """
         set object date to the given weeks after
@@ -193,6 +307,8 @@ class Date:
         """
 
         self.timestamp += weeks * ONE_WEEK
+
+        return self
 
     def weeks_before(self, weeks):
         """
@@ -205,6 +321,8 @@ class Date:
         self.timestamp -= weeks * ONE_WEEK
 
         self.lowest_timestamp_check()
+
+        return self
 
     def lowest_timestamp_check(self):
         """
