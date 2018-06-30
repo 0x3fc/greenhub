@@ -24,6 +24,54 @@ class CommandLineArgs:
             'arguments': self.arguments,
         })
 
+    def get_flag(self, flag):
+        """
+        get flag from current object
+
+        Args:
+            flag (str): the flag that is going to be retrieved
+
+        Returns:
+            bool: the flag value; if flag not exists, return false
+        """
+
+        if flag in self.flags:
+            return self.flags[flag]
+        else:
+            return False
+
+    def get_param(self, param):
+        """
+        get parameter from current object
+
+        Args:
+            param (str): the param that is going to be retrieved
+
+        Returns:
+            Union[int, str]: the param value; if param not exists, return none
+        """
+
+        if param in self.params:
+            return self.params[param]
+        else:
+            return None
+
+    def get_argument(self, index):
+        """
+        get argument from current object
+
+        Args:
+            index (int): the index of argument that is going to be retrieved
+
+        Returns:
+            Union[int, str]: the argument value; if argument not exists, return none
+        """
+
+        try:
+            return self.arguments[index]
+        except IndexError:
+            return None
+
     @staticmethod
     def parse_args(args):
         """
