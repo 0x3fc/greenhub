@@ -1,7 +1,7 @@
 from os import path
 from subprocess import call
 import random
-from .Date import Date
+from Greenhub import Date
 
 
 class Greenhub:

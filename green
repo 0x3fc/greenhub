@@ -1,6 +1,6 @@
 #!/usr/bin/python
-from CLI.CommandLineArgs import CommandLineArgs
-from Greenhub.Greenhub import Greenhub
+from CLI import CommandLineArgs
+from Greenhub import Greenhub
 
 
 def commit_everyday(command: CommandLineArgs):
