@@ -1,0 +1,42 @@
+#!/usr/bin/python
+from CLI.CommandLineArgs import CommandLineArgs
+from Greenhub.Greenhub import Greenhub
+
+
+def commit_everyday(command: CommandLineArgs):
+    """
+    Signature:
+        everyday
+
+    Description:
+        commit everyday in the past to fill github contribution graph
+
+    Options:
+        --start_date              : the start date of the commit, default 380 days ago
+        --commit_times_lower_bound: the everyday commit times lower bound, default 1
+        --commit_times_upper_bound: the everyday commit times upper bound, default 1
+
+    Examples:
+        python3 green everyday
+    """
+
+    start_date = command.get_param('start_date')
+    commit_times_lower_bound = command.get_param('commit_times_lower_bound')
+    commit_times_upper_bound = command.get_param('commit_times_upper_bound')
+
+    if commit_times_lower_bound is None:
+        commit_times_lower_bound = 1
+
+    if commit_times_upper_bound is None:
+        commit_times_upper_bound = 1
+
+    commit_times = [commit_times_lower_bound, commit_times_upper_bound]
+
+    Greenhub.commit_everyday(start_date, commit_times)
+
+
+argv = CommandLineArgs()
+
+argv.add_command('everyday', commit_everyday)
+
+argv.handle()
