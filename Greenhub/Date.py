@@ -4,13 +4,11 @@ import calendar
 import operator
 
 
-# date range constants
-ONE_DAY = 86400
-ONE_WEEK = ONE_DAY * 7
-
-
 class Date:
     timestamp = 0
+
+    ONE_DAY = 86400
+    ONE_WEEK = ONE_DAY * 7
 
     def __init__(self, date=None):
         """
@@ -235,7 +233,7 @@ class Date:
         set object date to the next day
         """
 
-        self.timestamp += ONE_DAY
+        self.timestamp += self.ONE_DAY
 
         return self
 
@@ -244,7 +242,7 @@ class Date:
         set object date to the last day
         """
 
-        self.timestamp -= ONE_DAY
+        self.timestamp -= self.ONE_DAY
 
         self.lowest_timestamp_check()
 
@@ -258,7 +256,7 @@ class Date:
             days (int): number of days after
         """
 
-        self.timestamp += days * ONE_DAY
+        self.timestamp += days * self.ONE_DAY
 
         return self
 
@@ -270,7 +268,7 @@ class Date:
             days (int): number of days before
         """
 
-        self.timestamp -= days * ONE_DAY
+        self.timestamp -= days * self.ONE_DAY
 
         self.lowest_timestamp_check()
 
@@ -283,7 +281,7 @@ class Date:
         set object date to the next week
         """
 
-        self.timestamp += ONE_WEEK
+        self.timestamp += self.ONE_WEEK
 
         return self
 
@@ -292,7 +290,7 @@ class Date:
         set object date to the last week
         """
 
-        self.timestamp -= ONE_WEEK
+        self.timestamp -= self.ONE_WEEK
 
         self.lowest_timestamp_check()
 
@@ -306,7 +304,7 @@ class Date:
             weeks (int): number of weeks after
         """
 
-        self.timestamp += weeks * ONE_WEEK
+        self.timestamp += weeks * self.ONE_WEEK
 
         return self
 
@@ -318,7 +316,7 @@ class Date:
             weeks (int): number of weeks before
         """
 
-        self.timestamp -= weeks * ONE_WEEK
+        self.timestamp -= weeks * self.ONE_WEEK
 
         self.lowest_timestamp_check()
 
