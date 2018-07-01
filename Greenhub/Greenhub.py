@@ -37,6 +37,15 @@ class Greenhub:
         Greenhub.commit_in_range(start_date, Date().tomorrow(), commit_count_range)
 
     @staticmethod
+    def filter_commit_date():
+        """
+        change the commit date to author date
+        """
+
+        # git filter-branch --env-filter 'export GIT_COMMITTER_DATE="$GIT_AUTHOR_DATE"'
+        call(['git', 'filter-branch', '--env-filter', """export GIT_COMMITTER_DATE="$GIT_AUTHOR_DATE" """])
+
+    @staticmethod
     def push(force=False):
         """
         push changes to github
