@@ -36,6 +36,8 @@ Params:
 --start_date              : the start date of the commit, default 380 days ago
 --commit_times_lower_bound: the everyday commit times lower bound, default 1
 --commit_times_upper_bound: the everyday commit times upper bound, default 1
+--push                    : push the commits at the end
+--force                   : do a force push if is pushing
 ```
 
 If you set a lower bound or upper bound, on each date, it will generate a random number between the bounds and commit

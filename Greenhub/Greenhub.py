@@ -37,6 +37,22 @@ class Greenhub:
         Greenhub.commit_in_range(start_date, Date().tomorrow(), commit_count_range)
 
     @staticmethod
+    def push(force=False):
+        """
+        push changes to github
+
+        Args:
+            force (bool): when true, do a force push
+        """
+
+        push_commit = ['git', 'push']
+
+        if force:
+            push_commit.append('--force')
+
+        call(push_commit)
+
+    @staticmethod
     def commit_in_range(start_date, end_date, commit_count_range=None):
         """
         commit from start date til end date (include start date, exclude end date)

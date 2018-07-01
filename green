@@ -15,12 +15,17 @@ def commit_everyday(command: CommandLineArgs):
         --start_date              : the start date of the commit, default 380 days ago
         --commit_times_lower_bound: the everyday commit times lower bound, default 1
         --commit_times_upper_bound: the everyday commit times upper bound, default 1
+        --push                    : push the commits at the end
+        --force                   : do a force push if is pushing
 
     Examples:
         python3 green everyday
     """
 
+    # get start date
     start_date = command.get_param('start_date')
+
+    # get commit times bounds
     commit_times_lower_bound = command.get_param('commit_times_lower_bound')
     commit_times_upper_bound = command.get_param('commit_times_upper_bound')
 
@@ -32,7 +37,12 @@ def commit_everyday(command: CommandLineArgs):
 
     commit_times = [commit_times_lower_bound, commit_times_upper_bound]
 
+    # commit
     Greenhub.commit_everyday(start_date, commit_times)
+
+    # push
+    if command.get_flag('push'):
+        Greenhub.push(force=command.get_flag('force'))
 
 
 argv = CommandLineArgs()
