@@ -50,8 +50,44 @@ def commit_everyday(command: CommandLineArgs):
         Greenhub.push(force=command.get_flag('force'))
 
 
+def commit_graph(command: CommandLineArgs):
+    """
+    Signature:
+        graph
+
+    Description:
+        commit github contribution using a graph
+
+    Options:
+        --name               (str) : the graph name
+        --base               (int) : the base number of commit times (except 0 times)
+        --change_commit_date (bool): update all the commit date to author date
+        --push               (bool): push the commits at the end
+        --force              (bool): do a force push if is pushing
+
+    Examples:
+        python3 green graph
+    """
+
+    # get graph file name
+    name = command.get_param('name')
+
+    # commit graph
+    Greenhub.commit_graph(name)
+
+    # change commit date
+    if command.get_flag('change_commit_date'):
+        Greenhub.filter_commit_date()
+
+    # push
+    if command.get_flag('push'):
+        Greenhub.push(force=command.get_flag('force'))
+
+
 argv = CommandLineArgs()
 
 argv.add_command('everyday', commit_everyday)
+
+argv.add_command('graph', commit_graph)
 
 argv.handle()

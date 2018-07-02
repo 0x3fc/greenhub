@@ -58,6 +58,9 @@ class Graph:
             Graph.parse_line(str(start_date), file.readline().rstrip('\n'), graph)
             start_date.tomorrow()
 
+        # close file
+        file.close()
+
         return graph
 
     @staticmethod

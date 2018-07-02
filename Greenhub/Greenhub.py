@@ -1,7 +1,8 @@
 from os import path
 from subprocess import call
 import random
-from Greenhub import Date
+from Greenhub.Date import Date
+from Greenhub.Graph import Graph
 
 
 class Greenhub:
@@ -14,6 +15,29 @@ class Greenhub:
 
         if not path.isfile(self.file_name):
             open(self.file_name, 'w')
+
+    @staticmethod
+    def commit_graph(name=None, base_commit_times=0):
+        """
+        commit according to a given graph
+
+        Args:
+            name              (str): the file name of the graph
+            base_commit_times (int): for all non zero commit, add this number of commit times
+        """
+
+        # get the first date of Github contribution graph
+        first_date = Greenhub.get_first_date()
+
+        # get the processed graph
+        graph = Graph.process(first_date, name)
+
+        # commit graph
+        for date, commit_times in graph.items():
+            # repeat commit times
+            for commit in range(commit_times + base_commit_times):
+                # commit on the date
+                Greenhub.commit(date)
 
     @staticmethod
     def commit_everyday(start_date=None, commit_count_range=None):

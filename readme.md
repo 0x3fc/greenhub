@@ -43,3 +43,45 @@ Params:
 
 If you set a lower bound or upper bound, on each date, it will generate a random number between the bounds and commit
 that number of times.
+
+### Graph
+
+Commit using a user defined commit graph
+
+```bash
+$ python3 green graph
+```
+
+```
+Params:
+
+--name               (str) : the graph name
+--base               (int) : the base number of commit times (except 0 times)
+--change_commit_date (bool): update all the commit date to author date
+--push               (bool): push the commits at the end
+--force              (bool): do a force push if is pushing
+```
+
+#### Green Graph Representation
+
+```
+.   -> commit 0 times
+1-9 -> commit 1-9 times
+0   -> commit 10 times
+A-Z -> commit 11-36 times
+a-z -> commit 37-62 times
+```
+
+**Example:**
+
+```
+.....................................................
+....aaa...aaaaa..a...a..a...a..a...a..a...a...aaa....
+...a......a......aa..a..a...a..a...a..aa..a..a.......
+....aaa...aaaaa..a.a.a..aaaaa..a...a..a.a.a..a.aaa...
+.......a..a......a..aa..a...a..a...a..a..aa..a...a...
+....aaa...aaaaa..a...a..a...a...aaa...a...a...aaa....
+.....................................................
+```
+
+![graph-example](assets/graph/graph-example.png)
