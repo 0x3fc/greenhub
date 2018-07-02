@@ -26,9 +26,9 @@ class Greenhub:
                                        times)
         """
 
-        # set start date to last year so it covers the whole time line if start date is not specified
+        # set start date to the Github contribution first date if start date is not specified
         if start_date is None:
-            start_date = Date().days_before(380)
+            start_date = Greenhub.get_first_date()
 
         else:
             start_date = Date(start_date)
@@ -120,3 +120,27 @@ class Greenhub:
         # update file with the content
         with open(Greenhub.file_name, 'w') as file:
             file.write(content)
+
+    @staticmethod
+    def get_first_date():
+        """
+        calculate the first date of the Github page contribution
+
+        Returns:
+            Date: the first date shown in the Github page contribution
+        """
+
+        # get today date
+        date = Date()
+
+        # get today weekday
+        weekday = date.get_weekday()
+
+        # move date to 53 weeks before
+        date.weeks_before(53)
+
+        # if is not sunday, move date to sunday
+        if weekday != 7:
+            date.days_before(weekday)
+
+        return date

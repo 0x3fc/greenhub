@@ -203,6 +203,41 @@ class Date:
 
         return year, month, day, hour, minute, second
 
+    @staticmethod
+    def get_today_weekday():
+        """
+        get today weekday
+
+        Returns:
+            int: the weekday of today
+                - 1: Monday
+                - 2: Tuesday
+                - 3: Wednesday
+                - 4: Thursday
+                - 5: Friday
+                - 6: Saturday
+                - 7: Sunday
+        """
+
+        return datetime.today().isoweekday()
+
+    def get_weekday(self):
+        """
+        get current object weekday
+
+        Returns:
+            int: the weekday of current object's date
+                - 1: Monday
+                - 2: Tuesday
+                - 3: Wednesday
+                - 4: Thursday
+                - 5: Friday
+                - 6: Saturday
+                - 7: Sunday
+        """
+
+        return datetime.fromtimestamp(self.timestamp).isoweekday()
+
     def now(self):
         """
         set date object to current time

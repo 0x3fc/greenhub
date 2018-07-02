@@ -12,7 +12,7 @@ def commit_everyday(command: CommandLineArgs):
         commit everyday in the past to fill github contribution graph
 
     Options:
-        --start_date               (str) : the start date of the commit, default 380 days ago
+        --start_date               (str) : the start date of the commit, default the first date in Github page
         --commit_times_lower_bound (int) : the everyday commit times lower bound, default 1
         --commit_times_upper_bound (int) : the everyday commit times upper bound, default 1
         --change_commit_date       (bool): update all the commit date to author date
