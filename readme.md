@@ -6,7 +6,7 @@ Make your Github contribution graph green by adding dump commits and changing co
 
 ## Demo
 
-A demo account is [senhungw](https://github.com/senhungw).
+A demo account is [wsenh](https://github.com/wsenh).
 
 ## How to use
 
